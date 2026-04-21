@@ -1,0 +1,164 @@
+digraph assessment_flow {
+    rankdir=TB;
+    fontname="Helvetica";
+    node [fontname="Helvetica", fontsize=11, style=filled, shape=box, fillcolor="#f0f4f8", color="#334155", penwidth=1.5, margin="0.15,0.1"];
+    edge [fontname="Helvetica", fontsize=9, color="#64748b", penwidth=1.2];
+    compound=true;
+
+    // ── Phase 0: Welcome & Mode Selection ──
+    subgraph cluster_phase0 {
+        label="Phase 0: Welcome & Mode Selection";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
+
+        welcome [label="Welcome Screen\n'Reflection aid, not compliance check'\n'Nothing stored on our servers'", fillcolor="#dbeafe"];
+        mode [label="Mode Selection\nNaive (default) | Augmented", shape=diamond, fillcolor="#fef3c7"];
+        welcome -> mode;
+    }
+
+    // ── Phase 1: Context ──
+    subgraph cluster_phase1 {
+        label="Phase 1: Context (optional)";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
+
+        funder [label="Which funder?\n(optional — adds council-specific\nguidance at output stage)"];
+        stage [label="Grant stage?\n(optional — informs output tone)"];
+        funder -> stage;
+    }
+    mode -> funder;
+
+    // ── Phase 2: Research Characterisation ──
+    subgraph cluster_phase2_naive {
+        label="Phase 2: Routing (Naive Mode)";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#60a5fa"; fillcolor="#eff6ff"; penwidth=1.5;
+
+        naive_select [label="Multi-select:\n'What does your research involve?'\n\nBiological agents | Genetic mod | Pathogens\nChemical synthesis | Precursors | Aerosols\nAI/ML | Dual-use equipment | Nuclear\nSurveillance | Cyber | Information hazard\nMilitary applications | International collab\n\nNone of the above", fillcolor="#dbeafe"];
+    }
+
+    subgraph cluster_phase2_aug {
+        label="Phase 2: Routing (Augmented Mode)";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#f59e0b"; fillcolor="#fffbeb"; penwidth=1.5;
+
+        aug_freetext [label="Free-text:\n'Briefly describe your research\n(2-3 sentences)'", fillcolor="#fef9c3"];
+        aug_classify [label="LLM classifies description\ninto activity/material categories", fillcolor="#fde68a", style="filled,dashed"];
+        aug_confirm [label="Researcher confirms\nor adjusts categories"];
+        aug_freetext -> aug_classify -> aug_confirm;
+    }
+
+    stage -> naive_select [label="  Naive mode"];
+    stage -> aug_freetext [label="  Augmented mode"];
+
+    // None selected path
+    none_check [label="Any categories\nselected?", shape=diamond, fillcolor="#fef3c7"];
+    naive_select -> none_check;
+    aug_confirm -> none_check;
+
+    skip_to_output [label="General good-practice\nguidance only\n(skip to Phase 6)", fillcolor="#dcfce7"];
+    none_check -> skip_to_output [label="  None selected"];
+
+    // ── Phase 3: Domain-Specific Deep Dive ──
+    subgraph cluster_phase3 {
+        label="Phase 3: Domain-Specific Deep Dive\n(union of all selected categories — multiple branches active simultaneously)";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
+
+        bio [label="3A: Biological Agents & Pathogens\n\nOrganism ID vs ACDP / Australia Group\n7 gain-of-function categories\nMethod transferability\nProtocol information hazard", fillcolor="#fce7f3"];
+
+        synbio [label="3B: Genetic Modification &\nSynthetic Biology\n\nOrganism ID\nCapability engineering\nDe novo synthesis risks\nPathogen transferability", fillcolor="#fce7f3"];
+
+        chem [label="3C: Chemical Hazards\n\nCWC schedule check\nAustralia Group precursors\nIntermediate screening\nRoute adaptability\nNovel toxicity\nDispersal mechanisms", fillcolor="#fef9c3"];
+
+        tech [label="3D: Technology &\nDual-Use Equipment\n\nWassenaar list check\nWeapons applicability\nAI/ML misuse checklist\nSurveillance implications", fillcolor="#e0e7ff"];
+
+        infohazard [label="3E: Information Hazards\n& Publication Risk\n\nRoadmap assessment\nBarrier-lowering check\nRestricted publication options", fillcolor="#fef3c7"];
+    }
+
+    none_check -> bio [label="  Bio categories selected", color="#be185d"];
+    none_check -> synbio [label="  Synbio categories", color="#be185d"];
+    none_check -> chem [label="  Chem categories", color="#ca8a04"];
+    none_check -> tech [label="  Tech categories", color="#4f46e5"];
+    none_check -> infohazard [label="  Info hazard selected\n  OR amber/red from 3A-3D", color="#92400e"];
+
+    bio -> infohazard [style=dashed, label="amber/red\nconcerns", color="#94a3b8"];
+    synbio -> infohazard [style=dashed, color="#94a3b8"];
+    chem -> infohazard [style=dashed, color="#94a3b8"];
+    tech -> infohazard [style=dashed, color="#94a3b8"];
+
+    // ── Phase 4: Misuse Reflection ──
+    subgraph cluster_phase4 {
+        label="Phase 4: Misuse Reflection (the core thinking step)";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
+
+        reflect_naive [label="Naive: Structured reflection prompts\ntailored to identified domains\n\n'Imagine your research succeeds.\nWhat is the most harmful thing\nsomeone could do with it?'\n\n[I have reflected on this]", fillcolor="#dbeafe"];
+
+        reflect_aug [label="Augmented: Free-text reflection\n\n'What potential misuse applications\ncould there be if your research\nis successful?'\n\nLLM classifies concerns +\nsurfaces additional considerations", fillcolor="#fef9c3"];
+    }
+
+    // Phase 3 -> Phase 4
+    phase3_done [label="All domain questions\ncomplete", shape=ellipse, fillcolor="#e2e8f0"];
+
+    bio -> phase3_done [style=invis, weight=0];
+    synbio -> phase3_done [style=invis, weight=0];
+    chem -> phase3_done [style=invis, weight=0];
+    tech -> phase3_done [style=invis, weight=0];
+    infohazard -> phase3_done;
+
+    phase3_done -> reflect_naive [label="  Naive mode"];
+    phase3_done -> reflect_aug [label="  Augmented mode"];
+
+    // ── Phase 5: Existing Safeguards ──
+    subgraph cluster_phase5 {
+        label="Phase 5: Existing Safeguards";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
+
+        oversight [label="Current institutional oversight?\n(biosafety committee, REC,\nexport control, etc.)"];
+        no_oversight [label="None / Not sure:\n'Consider contacting your\nresearch governance office'", fillcolor="#fef3c7"];
+        mitigation [label="Mitigation already in place?\n(risk assessment, biosecurity\nconsult, lower-risk alternatives, etc.)"];
+
+        oversight -> no_oversight [label="  None/unsure", style=dashed];
+        oversight -> mitigation;
+        no_oversight -> mitigation;
+    }
+
+    reflect_naive -> oversight;
+    reflect_aug -> oversight;
+
+    // ── Phase 6: Results & Output ──
+    subgraph cluster_phase6 {
+        label="Phase 6: Results & Output";
+        labeljust=l; fontsize=12; fontname="Helvetica-Bold";
+        style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
+
+        tier [label="Tiered Assessment\nSummary", shape=diamond, fillcolor="#fef3c7"];
+
+        green [label="GREEN\nLow concern\n\nGeneral good practice\nCaveats\nResource links", fillcolor="#dcfce7"];
+        amber [label="AMBER\nModerate concern\n\n'Have you considered...'\nSuggested mitigations\nInstitutional pointers", fillcolor="#fef9c3"];
+        red [label="RED\nSignificant concern\n\nNon-alarmist framing\nSpecialist advice\nMethodology change\nmay be needed", fillcolor="#fee2e2"];
+
+        templates [label="Template-Assembled\nWriting Output\n\nStructured draft skeleton\nfor RRI section", fillcolor="#dbeafe"];
+
+        rri_links [label="Broader RRI Pointers\n+ Funder-Specific Guidance\n(if funder selected)"];
+
+        export [label="EXPORT\n\n[Download PDF]  [Download Markdown]\n\n'Results are NOT stored.\nClosing this page = permanent loss.'", fillcolor="#dbeafe", penwidth=2.5, color="#1e40af"];
+
+        feedback [label="Optional feedback:\n'Did this surface anything new?\nDid it miss anything?'", fillcolor="#f0f4f8"];
+
+        tier -> green [label="  Low"];
+        tier -> amber [label="  Moderate"];
+        tier -> red [label="  Significant"];
+        green -> templates;
+        amber -> templates;
+        red -> templates;
+        templates -> rri_links;
+        rri_links -> export;
+        export -> feedback;
+    }
+
+    mitigation -> tier;
+    skip_to_output -> tier [style=dashed];
+}
