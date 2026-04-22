@@ -1,0 +1,126 @@
+{
+  "id": "technology",
+  "title": "Technology & Dual-Use Equipment",
+  "description": "Questions about AI/ML, robotics, quantum, cyber, advanced materials, and dual-use equipment.",
+  "questions": [
+    {
+      "id": "tech-wassenaar",
+      "text": "Does your research involve equipment or technology on the Wassenaar Arrangement dual-use list?",
+      "helpText": "The Wassenaar Arrangement controls export of dual-use goods and technologies (https://www.wassenaar.org/control-lists/). Common examples include certain centrifuges, CNC machine tools, sensors, and encryption technology.",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "tech-wassenaar", "concernTitle": "Wassenaar-listed technology", "concernDescription": "Your research involves technology on the Wassenaar Arrangement dual-use list. This carries export control and dual-use implications.", "templateBlocks": ["2-TECH-WASSENAAR", "3-MIT-EXPORT"] },
+        { "when": "unsure", "signal": "note", "concernId": "tech-wassenaar-unsure", "concernTitle": "Wassenaar status uncertain", "concernDescription": "You were unsure whether your technology appears on the Wassenaar list. Consider checking with your institution's export control officer.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "tech-weapons",
+      "text": "Could the technology you are developing be directly applied to weapons development, military targeting, or mass surveillance?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "significant", "concernId": "tech-weapons", "concernTitle": "Direct weapons/military applicability", "concernDescription": "Your technology has direct potential applications in weapons development, military targeting, or mass surveillance.", "templateBlocks": ["2-TECH-WEAPONS", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "unsure", "signal": "moderate", "concernId": "tech-weapons-unsure", "concernTitle": "Weapons applicability uncertain", "concernDescription": "You were unsure whether your technology could be applied to weapons or military purposes.", "templateBlocks": ["2-TECH-WEAPONS"] }
+      ]
+    },
+    {
+      "id": "tech-ai-misuse",
+      "text": "Does your AI/ML work involve any of the following?",
+      "helpText": "Select all that apply. Even if your work is intended for beneficial purposes, consider whether the capabilities could be repurposed.",
+      "type": "multi-select",
+      "options": [
+        { "id": "ai-dangerous-data", "label": "Training models on data related to dangerous agents or weapons", "signal": "moderate" },
+        { "id": "ai-attack-planning", "label": "Developing capabilities that could assist in planning or executing attacks", "signal": "significant" },
+        { "id": "ai-automate-design", "label": "Creating tools that could automate the design of harmful agents", "signal": "significant" },
+        { "id": "ai-lower-barrier", "label": "Lowering the expertise barrier for dangerous activities", "signal": "moderate" },
+        { "id": "ai-harmful-content", "label": "Generating content that could enable bioweapons, chemical weapons, or cyberattacks", "signal": "significant" },
+        { "id": "ai-none", "label": "None of the above / not applicable", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "ai-dangerous-data", "signal": "moderate", "concernId": "tech-ai-data", "concernTitle": "AI trained on dangerous-agent data", "concernDescription": "Your AI models are trained on data related to dangerous agents or weapons, which could transfer harmful knowledge through the model.", "templateBlocks": ["2-TECH-AI", "3-MIT-ACCESS"] },
+        { "when": "ai-attack-planning", "signal": "significant", "concernId": "tech-ai-attack", "concernTitle": "AI with attack-planning capabilities", "concernDescription": "Your AI could assist in planning or executing attacks. This is a significant dual-use concern.", "templateBlocks": ["2-TECH-AI", "3-MIT-ACCESS", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "ai-automate-design", "signal": "significant", "concernId": "tech-ai-automate", "concernTitle": "AI automating harmful agent design", "concernDescription": "Your AI could automate the design of harmful agents. This represents one of the most serious AI dual-use concerns.", "templateBlocks": ["2-TECH-AI", "3-MIT-ACCESS", "3-MIT-RISK-ASSESSMENT", "3-MIT-PUBLICATION"] },
+        { "when": "ai-lower-barrier", "signal": "moderate", "concernId": "tech-ai-barrier", "concernTitle": "AI lowering expertise barriers", "concernDescription": "Your AI work could lower the expertise barrier for dangerous activities.", "templateBlocks": ["2-TECH-AI", "2-INFO-BARRIER"] },
+        { "when": "ai-harmful-content", "signal": "significant", "concernId": "tech-ai-content", "concernTitle": "AI generating weapons-enabling content", "concernDescription": "Your AI could generate content enabling bioweapons, chemical weapons, or cyberattacks.", "templateBlocks": ["2-TECH-AI", "3-MIT-ACCESS", "3-MIT-RISK-ASSESSMENT"] }
+      ]
+    },
+    {
+      "id": "tech-surveillance",
+      "text": "Does your technology have applications in surveillance, tracking, or monitoring of individuals or populations?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "tech-surveillance", "concernTitle": "Surveillance applications", "concernDescription": "Your technology has surveillance applications. Consider the implications for privacy, civil liberties, and potential misuse by authoritarian regimes.", "templateBlocks": ["2-TECH-SURVEILLANCE"] },
+        { "when": "unsure", "signal": "note", "concernId": "tech-surveillance-unsure", "concernTitle": "Surveillance potential uncertain", "concernDescription": "You were unsure whether your technology has surveillance applications.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "tech-materials",
+      "text": "Does your work involve advanced materials with potential dual-use applications?",
+      "type": "multi-select",
+      "options": [
+        { "id": "mat-stealth", "label": "Metamaterials with stealth, cloaking, or signal-manipulation properties", "signal": "moderate" },
+        { "id": "mat-nano-delivery", "label": "Nanomaterials with potential for targeted delivery of harmful agents", "signal": "moderate" },
+        { "id": "mat-energetic", "label": "High-performance energetic materials or propellants", "signal": "significant" },
+        { "id": "mat-nuclear", "label": "Materials with nuclear or radiological shielding/concentration applications", "signal": "significant" },
+        { "id": "mat-military", "label": "Composites or coatings with military-grade performance characteristics", "signal": "moderate" },
+        { "id": "mat-none", "label": "None of the above / not applicable", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "mat-stealth", "signal": "moderate", "concernId": "tech-mat-stealth", "concernTitle": "Stealth/signal-manipulation materials", "concernDescription": "Your metamaterials work has potential applications in military stealth or signal manipulation.", "templateBlocks": ["2-TECH-MATERIALS"] },
+        { "when": "mat-nano-delivery", "signal": "moderate", "concernId": "tech-mat-nano", "concernTitle": "Nanomaterials for agent delivery", "concernDescription": "Your nanomaterials could potentially be used for targeted delivery of harmful agents.", "templateBlocks": ["2-TECH-MATERIALS"] },
+        { "when": "mat-energetic", "signal": "significant", "concernId": "tech-mat-energetic", "concernTitle": "High-performance energetic materials", "concernDescription": "Your work on energetic materials or propellants has significant dual-use implications for weapons development.", "templateBlocks": ["2-TECH-MATERIALS", "3-MIT-RISK-ASSESSMENT", "3-MIT-ACCESS"] },
+        { "when": "mat-nuclear", "signal": "significant", "concernId": "tech-mat-nuclear", "concernTitle": "Nuclear/radiological materials applications", "concernDescription": "Your materials work has implications for nuclear or radiological applications.", "templateBlocks": ["2-TECH-MATERIALS", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "mat-military", "signal": "moderate", "concernId": "tech-mat-military", "concernTitle": "Military-grade material properties", "concernDescription": "Your composites or coatings achieve military-grade performance characteristics.", "templateBlocks": ["2-TECH-MATERIALS"] }
+      ]
+    },
+    {
+      "id": "tech-robotics",
+      "text": "Does your robotics or autonomous platform work involve any of the following?",
+      "type": "multi-select",
+      "options": [
+        { "id": "robot-nav-target", "label": "Autonomous navigation or targeting capabilities", "signal": "moderate" },
+        { "id": "robot-payload", "label": "Platforms capable of carrying or dispersing payloads", "signal": "significant" },
+        { "id": "robot-swarm", "label": "Swarm coordination or multi-agent autonomous systems", "signal": "moderate" },
+        { "id": "robot-hazmat", "label": "Remote manipulation of hazardous materials", "signal": "note" },
+        { "id": "robot-none", "label": "None of the above / not applicable", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "robot-nav-target", "signal": "moderate", "concernId": "tech-robot-nav", "concernTitle": "Autonomous navigation/targeting", "concernDescription": "Your autonomous navigation or targeting capabilities could be adapted for weapons systems.", "templateBlocks": ["2-TECH-ROBOTICS"] },
+        { "when": "robot-payload", "signal": "significant", "concernId": "tech-robot-payload", "concernTitle": "Payload-capable autonomous platform", "concernDescription": "Your autonomous platform is capable of carrying or dispersing payloads, which could be adapted for weapons delivery.", "templateBlocks": ["2-TECH-ROBOTICS", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "robot-swarm", "signal": "moderate", "concernId": "tech-robot-swarm", "concernTitle": "Swarm/multi-agent autonomy", "concernDescription": "Swarm coordination capabilities have significant military dual-use potential.", "templateBlocks": ["2-TECH-ROBOTICS"] }
+      ]
+    },
+    {
+      "id": "tech-quantum",
+      "text": "Does your quantum technology work have implications for any of the following?",
+      "type": "multi-select",
+      "options": [
+        { "id": "quantum-crypto", "label": "Breaking or weakening current encryption standards", "signal": "moderate" },
+        { "id": "quantum-sensing", "label": "Covert detection or surveillance capabilities", "signal": "moderate" },
+        { "id": "quantum-comms", "label": "Undetectable or uninterceptable signalling", "signal": "note" },
+        { "id": "quantum-none", "label": "None of the above / not applicable", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "quantum-crypto", "signal": "moderate", "concernId": "tech-quantum-crypto", "concernTitle": "Quantum threat to cryptographic infrastructure", "concernDescription": "Your quantum computing work has implications for existing cryptographic infrastructure.", "templateBlocks": ["2-TECH-QUANTUM"] },
+        { "when": "quantum-sensing", "signal": "moderate", "concernId": "tech-quantum-sensing", "concernTitle": "Quantum sensing for covert detection", "concernDescription": "Your quantum sensing work could enable covert detection or surveillance capabilities.", "templateBlocks": ["2-TECH-QUANTUM"] }
+      ]
+    },
+    {
+      "id": "tech-cyber",
+      "text": "Does your cybersecurity research involve any of the following?",
+      "type": "multi-select",
+      "options": [
+        { "id": "cyber-vulns", "label": "Discovery or development of novel attack vectors or exploits", "signal": "moderate" },
+        { "id": "cyber-bypass", "label": "Tools or methods for bypassing security controls", "signal": "moderate" },
+        { "id": "cyber-cni", "label": "Vulnerabilities in critical national infrastructure", "signal": "significant" },
+        { "id": "cyber-offensive", "label": "Offensive cyber capabilities, even if for defensive purposes", "signal": "significant" },
+        { "id": "cyber-none", "label": "None of the above / not applicable", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "cyber-vulns", "signal": "moderate", "concernId": "tech-cyber-vulns", "concernTitle": "Novel attack vectors/exploits", "concernDescription": "Your research discovers or develops novel attack vectors. Responsible disclosure practices are essential.", "templateBlocks": ["2-TECH-CYBER", "3-MIT-DISCLOSURE"] },
+        { "when": "cyber-bypass", "signal": "moderate", "concernId": "tech-cyber-bypass", "concernTitle": "Security bypass tools", "concernDescription": "Your tools could be used to bypass security controls.", "templateBlocks": ["2-TECH-CYBER", "3-MIT-DISCLOSURE"] },
+        { "when": "cyber-cni", "signal": "significant", "concernId": "tech-cyber-cni", "concernTitle": "Critical national infrastructure vulnerabilities", "concernDescription": "Your research touches CNI vulnerabilities, which has severe implications if disclosed irresponsibly.", "templateBlocks": ["2-TECH-CYBER", "3-MIT-DISCLOSURE", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "cyber-offensive", "signal": "significant", "concernId": "tech-cyber-offensive", "concernTitle": "Offensive cyber capabilities", "concernDescription": "Your research develops offensive cyber capabilities. Even defensive-purpose development creates dual-use tools.", "templateBlocks": ["2-TECH-CYBER", "3-MIT-DISCLOSURE", "3-MIT-ACCESS"] }
+      ]
+    }
+  ]
+}

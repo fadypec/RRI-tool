@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* ─── Google Fonts ─── */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ─── Design Tokens ─── */
+@theme {
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+
+  --color-ink: #1a1f2e;
+  --color-ink-muted: #4a5068;
+  --color-ink-light: #6b7280;
+  --color-surface: #faf9f6;
+  --color-surface-warm: #f4f2ed;
+  --color-surface-card: #ffffff;
+  --color-border: #e8e6e1;
+  --color-border-strong: #d4d1ca;
+  --color-accent: #a07828;
+  --color-accent-hover: #8a6820;
+  --color-accent-light: #f5eddd;
+
+  --color-tier-low: #3d8b6e;
+  --color-tier-low-bg: #eef7f2;
+  --color-tier-moderate: #b8883b;
+  --color-tier-moderate-bg: #fdf6eb;
+  --color-tier-significant: #b54d4d;
+  --color-tier-significant-bg: #fcf0f0;
+}
+
+/* ─── Base ─── */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Night mode ─── */
+[data-theme="dark"] {
+  --color-ink: #e8e6e1;
+  --color-ink-muted: #b0a89c;
+  --color-ink-light: #9a9488;
+  --color-surface: #1a1d24;
+  --color-surface-warm: #22262e;
+  --color-surface-card: #272b34;
+  --color-border: #363a44;
+  --color-border-strong: #484d58;
+  --color-accent: #d4a843;
+  --color-accent-hover: #e0b854;
+  --color-accent-light: #2e2820;
+  --color-tier-low: #5aad8a;
+  --color-tier-low-bg: #1e2c26;
+  --color-tier-moderate: #d4a843;
+  --color-tier-moderate-bg: #2e2820;
+  --color-tier-significant: #d46a6a;
+  --color-tier-significant-bg: #2e1e1e;
+}

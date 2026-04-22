@@ -1,0 +1,62 @@
+{
+  "id": "chemical",
+  "title": "Chemical Hazards",
+  "description": "Questions about chemical substances, synthesis routes, and dispersal methods in your research.",
+  "questions": [
+    {
+      "id": "chem-controlled-lists",
+      "text": "Does your research involve any chemicals on the following controlled lists?",
+      "helpText": "The CWC Schedules list chemicals relevant to chemical weapons (https://www.opcw.org/chemical-weapons-convention/annexes/annex-chemicals). The Australia Group list covers dual-use chemical precursors (https://www.dfat.gov.au/publications/minisite/theaustraliagroupnet/site/en/precursors.html). If unsure, check with your institution's chemical safety officer.",
+      "type": "multi-select",
+      "options": [
+        { "id": "cwc-s1", "label": "CWC Schedule 1 (chemicals with few or no uses outside weapons)", "signal": "significant" },
+        { "id": "cwc-s2", "label": "CWC Schedule 2 (significant risk to the Convention; some commercial use)", "signal": "significant" },
+        { "id": "cwc-s3", "label": "CWC Schedule 3 (previously produced as weapons; large-scale industrial use)", "signal": "moderate" },
+        { "id": "ag-chem", "label": "Australia Group chemical precursors list", "signal": "moderate" },
+        { "id": "chem-none", "label": "None of the above / not sure", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "cwc-s1", "signal": "significant", "concernId": "chem-cwc-s1", "concernTitle": "CWC Schedule 1 chemical", "concernDescription": "Your research involves a CWC Schedule 1 chemical — substances with few or no uses outside chemical weapons. This carries the highest level of chemical dual-use concern.", "templateBlocks": ["2-CHEM-CONTROLLED", "3-MIT-RISK-ASSESSMENT", "3-MIT-ACCESS"] },
+        { "when": "cwc-s2", "signal": "significant", "concernId": "chem-cwc-s2", "concernTitle": "CWC Schedule 2 chemical", "concernDescription": "Your research involves a CWC Schedule 2 chemical, which poses significant risk under the Chemical Weapons Convention.", "templateBlocks": ["2-CHEM-CONTROLLED", "3-MIT-RISK-ASSESSMENT", "3-MIT-ACCESS"] },
+        { "when": "cwc-s3", "signal": "moderate", "concernId": "chem-cwc-s3", "concernTitle": "CWC Schedule 3 chemical", "concernDescription": "Your research involves a CWC Schedule 3 chemical. These have been used as weapons historically but also have widespread industrial applications.", "templateBlocks": ["2-CHEM-CONTROLLED"] },
+        { "when": "ag-chem", "signal": "moderate", "concernId": "chem-ag", "concernTitle": "Australia Group chemical precursor", "concernDescription": "Your research involves a chemical on the Australia Group precursors list, which carries export control implications.", "templateBlocks": ["2-CHEM-CONTROLLED", "3-MIT-EXPORT"] }
+      ]
+    },
+    {
+      "id": "chem-intermediates",
+      "text": "Does your synthesis route use or produce intermediates that appear on controlled lists, even if they are not your target product?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "chem-intermediate", "concernTitle": "Controlled intermediates in synthesis route", "concernDescription": "Your synthesis route passes through controlled intermediates. Even though they are not your target product, their presence requires management.", "templateBlocks": ["2-CHEM-INTERMEDIATE"] },
+        { "when": "unsure", "signal": "note", "concernId": "chem-intermediate-unsure", "concernTitle": "Controlled intermediate status uncertain", "concernDescription": "You were unsure whether your synthesis route involves controlled intermediates. Consider reviewing your route against the CWC schedules and Australia Group lists.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "chem-route-adapt",
+      "text": "Could your synthesis methods or routes be adapted to produce chemical weapons agents or their precursors?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "significant", "concernId": "chem-route-adapt", "concernTitle": "Synthesis route adaptable to CW agent production", "concernDescription": "Your synthesis methods could be adapted for producing chemical weapons agents or precursors. This is a significant dual-use concern.", "templateBlocks": ["2-CHEM-ROUTE", "3-MIT-PUBLICATION"] },
+        { "when": "unsure", "signal": "moderate", "concernId": "chem-route-unsure", "concernTitle": "Synthesis adaptability uncertain", "concernDescription": "You were unsure whether your methods could be adapted for harmful purposes. Consider seeking specialist assessment.", "templateBlocks": ["2-CHEM-ROUTE"] }
+      ]
+    },
+    {
+      "id": "chem-novel-toxicity",
+      "text": "Does your research involve novel compounds with significant toxicity, or methods for enhancing the toxicity or bioavailability of existing compounds?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "chem-toxicity", "concernTitle": "Novel toxic compounds", "concernDescription": "Your research involves creating or enhancing toxic compounds. The dual-use dimension depends on the specific toxicity profile and accessibility.", "templateBlocks": ["2-CHEM-CONTROLLED", "3-MIT-ACCESS"] },
+        { "when": "unsure", "signal": "note", "concernId": "chem-toxicity-unsure", "concernTitle": "Toxicity significance uncertain", "concernDescription": "You were unsure about the significance of toxicity in your compounds.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "chem-dispersal",
+      "text": "Does your work involve aerosolisation, encapsulation, or dispersal mechanisms that could be adapted for delivery of harmful agents?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "significant", "concernId": "chem-dispersal", "concernTitle": "Dispersal mechanisms with dual-use potential", "concernDescription": "Your work on dispersal mechanisms could be adapted for delivery of harmful agents. This is a significant concern even when the intended application is beneficial.", "templateBlocks": ["2-CHEM-DISPERSAL", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "unsure", "signal": "moderate", "concernId": "chem-dispersal-unsure", "concernTitle": "Dispersal dual-use potential uncertain", "concernDescription": "You were unsure whether your dispersal methods could be adapted for harmful delivery.", "templateBlocks": ["2-CHEM-DISPERSAL"] }
+      ]
+    }
+  ]
+}

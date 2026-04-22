@@ -1,0 +1,77 @@
+{
+  "id": "biological",
+  "title": "Biological Agents & Pathogens",
+  "description": "Questions about the organisms, agents, and biological methods in your research.",
+  "questions": [
+    {
+      "id": "bio-organism-hazard",
+      "text": "What containment level is required for the organisms or biological agents in your research?",
+      "helpText": "ACDP Hazard Groups determine the required Containment Level (CL). CL1 = low risk, CL2 = moderate, CL3 = serious disease risk, CL4 = highest risk. Check the ACDP Approved List: https://www.hse.gov.uk/pUbns/misc/energen.htm",
+      "type": "multi-select",
+      "options": [
+        { "id": "hg1", "label": "Containment Level 1 / Hazard Group 1 (unlikely to cause human disease)", "signal": "none" },
+        { "id": "hg2", "label": "Containment Level 2 / Hazard Group 2 (can cause disease; treatment available)", "signal": "note" },
+        { "id": "hg3", "label": "Containment Level 3 / Hazard Group 3 (serious disease; may spread)", "signal": "moderate" },
+        { "id": "hg4", "label": "Containment Level 4 / Hazard Group 4 (severe disease; no treatment)", "signal": "significant" },
+        { "id": "unsure-hg", "label": "I'm not sure of the containment level", "signal": "note" }
+      ],
+      "signals": [
+        { "when": "hg3", "signal": "moderate", "concernId": "bio-hg3", "concernTitle": "ACDP Hazard Group 3 organism", "concernDescription": "Your research involves an ACDP Hazard Group 3 organism, which can cause severe human disease. This requires Containment Level 3 facilities and carries dual-use considerations.", "templateBlocks": ["2-BIO-AGENT", "3-MIT-CONTAINMENT"] },
+        { "when": "hg4", "signal": "significant", "concernId": "bio-hg4", "concernTitle": "ACDP Hazard Group 4 organism", "concernDescription": "Your research involves an ACDP Hazard Group 4 organism — the highest risk category. This requires maximum containment and carries significant dual-use and biosecurity implications.", "templateBlocks": ["2-BIO-AGENT", "3-MIT-CONTAINMENT", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "unsure-hg", "signal": "note", "concernId": "bio-hg-unsure", "concernTitle": "Hazard group not confirmed", "concernDescription": "You were unsure of the hazard group classification. Consider checking the ACDP Approved List of Biological Agents or consulting your institutional biosafety officer.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "bio-australia-group",
+      "text": "Are any of the organisms in your research on the Australia Group list of biological agents?",
+      "helpText": "The Australia Group maintains a list of biological agents with potential for use in biological weapons. This includes many common research organisms. See: https://www.dfat.gov.au/publications/minisite/theaustraliagroupnet/site/en/human_animal_pathogens.html",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "bio-ag-listed", "concernTitle": "Australia Group listed organism", "concernDescription": "Your research involves an organism on the Australia Group biological agents list. This carries export control and additional oversight considerations.", "templateBlocks": ["2-BIO-AGENT"] },
+        { "when": "unsure", "signal": "note", "concernId": "bio-ag-unsure", "concernTitle": "Australia Group status not confirmed", "concernDescription": "You were unsure whether your organisms appear on the Australia Group list. Consider checking the list or consulting your institution's export control officer.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "bio-gof-categories",
+      "text": "Does your research involve any of the following?",
+      "helpText": "These are internationally recognised categories of gain-of-function research with dual-use potential, drawn from the US DURC policy and the Canadian PHAC framework.",
+      "type": "multi-select",
+      "options": [
+        { "id": "gof-transmissibility", "label": "Enhancing transmissibility of a pathogen", "signal": "moderate" },
+        { "id": "gof-virulence", "label": "Enhancing virulence or pathogenicity", "signal": "moderate" },
+        { "id": "gof-host-range", "label": "Expanding host range", "signal": "moderate" },
+        { "id": "gof-resistance", "label": "Enhancing resistance to therapeutics or vaccines", "signal": "moderate" },
+        { "id": "gof-immune-evasion", "label": "Enhancing immune evasion", "signal": "moderate" },
+        { "id": "gof-susceptibility", "label": "Rendering a population more susceptible to an agent", "signal": "moderate" },
+        { "id": "gof-reconstitute", "label": "Generating or reconstituting an eradicated or extinct agent", "signal": "significant" },
+        { "id": "gof-stability", "label": "Enhancing environmental stability or decontamination resistance", "signal": "moderate" },
+        { "id": "gof-toxin", "label": "Conferring novel toxin production capacity", "signal": "moderate" },
+        { "id": "gof-diagnostics", "label": "Enhancing capacity to interfere with diagnostics or surveillance", "signal": "moderate" },
+        { "id": "gof-hgt", "label": "Increasing horizontal gene transfer potential", "signal": "note" },
+        { "id": "gof-dispersal", "label": "Enhancing dispersal or release capacity", "signal": "moderate" }
+      ],
+      "signals": [
+        { "when": "any-selected", "signal": "moderate", "concernId": "bio-gof", "concernTitle": "Gain-of-function research", "concernDescription": "Your research involves gain-of-function work that falls within internationally recognised categories of dual-use concern.", "templateBlocks": ["2-BIO-GOF", "3-MIT-RISK-ASSESSMENT", "3-MIT-ALTERNATIVE"] },
+        { "when": "gof-reconstitute", "signal": "significant", "concernId": "bio-gof-reconstitute", "concernTitle": "Reconstitution of eradicated/extinct agent", "concernDescription": "Generating or reconstituting an eradicated or extinct agent is among the most serious dual-use concerns. This work requires specialist oversight and robust justification.", "templateBlocks": ["2-BIO-GOF", "3-MIT-RISK-ASSESSMENT", "3-MIT-CONTAINMENT", "3-MIT-ALTERNATIVE"] }
+      ]
+    },
+    {
+      "id": "bio-method-transfer",
+      "text": "Could the methods or techniques you are developing be applied to organisms other than your study organism — including organisms that could be weaponised?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "bio-transfer", "concernTitle": "Method transferability", "concernDescription": "Your methods could be applied to organisms beyond your study system, including organisms with higher biosecurity implications.", "templateBlocks": ["2-BIO-TRANSFER"] },
+        { "when": "unsure", "signal": "note", "concernId": "bio-transfer-unsure", "concernTitle": "Method transferability uncertain", "concernDescription": "You were unsure whether your methods could be applied to higher-risk organisms. Consider discussing this with a biosecurity specialist.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "bio-protocol-hazard",
+      "text": "Does your research produce detailed protocols that could enable someone without specialist training to work with dangerous biological agents?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "bio-protocol", "concernTitle": "Protocol information hazard", "concernDescription": "Your work generates protocols that could enable non-specialist work with dangerous agents. This is an information hazard that requires careful management of publication and sharing.", "templateBlocks": ["2-BIO-PROTOCOL", "3-MIT-PUBLICATION"] },
+        { "when": "unsure", "signal": "note", "concernId": "bio-protocol-unsure", "concernTitle": "Protocol accessibility uncertain", "concernDescription": "You were unsure whether your protocols could enable non-specialist work with dangerous agents.", "templateBlocks": [] }
+      ]
+    }
+  ]
+}

@@ -45,3 +45,8 @@ coverage/
 # Logs
 *.log
 npm-debug.log*
+
+# Test artifacts
+test.png
+docs/dual-use-lens-assessment-*.md
+docs/rri-steer-assessment-*.md

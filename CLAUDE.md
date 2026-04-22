@@ -1,10 +1,16 @@
-# RRI Dual-Use Assessment Tool
+# RRI STEER
 
 ## What This Is
 
 A structured reflection tool that helps UK academic researchers (primarily PIs writing grant applications) identify dual-use and security implications of their research. Built as an open-source proof of concept by the Centre for Long-Term Resilience (CLTR) for eventual handoff to UKRI or an institutional adopter.
 
+Working name: **RRI STEER**.
+
 This is **not** an LLM wrapper. It is a thinking tool with template-assembled writing output. The core product works with zero AI dependency.
+
+## Project Status
+
+Design phase complete. All 20 design questions resolved. v1.0 PoC built. Pre-user-testing.
 
 ## The Problem
 
@@ -93,14 +99,22 @@ No LLM-generated prose. No open-ended chat. No text generation.
 
 ## Key Documents
 
-- `docs/design_decisions.md` — Full record of all design decisions with rationale
+- `docs/design_decisions.md` — Full record of all 20 design decisions with rationale
 - `docs/design_questions.md` — The 20 questions that shaped the design, with resolution order
+- `docs/assessment_flow.md` — Complete question sequence with branching logic (see also `assessment_flow.png` and `.dot`)
+- `docs/scoring_framework.md` — Two-axis scoring: Concern Level x Preparedness, with detailed per-question rules
+- `docs/template_assembly.md` — Modular text blocks assembled into draft RRI section text (~35 blocks)
+- `docs/tech_stack.md` — Technology choices with rationale
 - `docs/feature_longlist.md` — Ideas captured for future consideration
+- `docs/references/` — Source material (Canadian PHAC framework, etc.)
+- `prototypes/ui_prototype.html` — Interactive visual prototype with day/night mode
 - `initial_concept.md` — Original proto-requirements from the requesting academic
 
 ## Tech Constraints
 
-- Apache 2.0 licence (chosen over MIT because Apache 2.0 includes an explicit patent grant — important when UKRI or a university forks and modifies the tool, as it protects adopters from patent claims on contributed code)
+- See `docs/tech_stack.md` for full details
+- Apache 2.0 licence (patent grant protects adopting organisations)
+- React + Vite + TypeScript frontend, Express backend, single Railway deployment
 - Must be deployable by a university IT team or UKRI — no exotic dependencies
 - Risk taxonomies in data files, not application code
 - API key must be configurable (env var), not baked in

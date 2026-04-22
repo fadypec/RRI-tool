@@ -11,7 +11,7 @@ digraph assessment_flow {
         labeljust=l; fontsize=12; fontname="Helvetica-Bold";
         style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
 
-        welcome [label="Welcome Screen\n'Reflection aid, not compliance check'\n'Nothing stored on our servers'", fillcolor="#dbeafe"];
+        welcome [label="Welcome Screen\n'Reflection aid, not compliance check'\n'Nothing stored on our servers'\n'Independent tool — not endorsed by UKRI'", fillcolor="#dbeafe"];
         mode [label="Mode Selection\nNaive (default) | Augmented", shape=diamond, fillcolor="#fef3c7"];
         welcome -> mode;
     }
@@ -65,13 +65,13 @@ digraph assessment_flow {
         labeljust=l; fontsize=12; fontname="Helvetica-Bold";
         style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
 
-        bio [label="3A: Biological Agents & Pathogens\n\nOrganism ID vs ACDP / Australia Group\n7 gain-of-function categories\nMethod transferability\nProtocol information hazard", fillcolor="#fce7f3"];
+        bio [label="3A: Biological Agents & Pathogens\n\nOrganism ID vs ACDP / Australia Group\n12 concern categories\n(US DURC 7 + Canadian PHAC 5)\nMethod transferability\nProtocol information hazard", fillcolor="#fce7f3"];
 
         synbio [label="3B: Genetic Modification &\nSynthetic Biology\n\nOrganism ID\nCapability engineering\nDe novo synthesis risks\nPathogen transferability", fillcolor="#fce7f3"];
 
         chem [label="3C: Chemical Hazards\n\nCWC schedule check\nAustralia Group precursors\nIntermediate screening\nRoute adaptability\nNovel toxicity\nDispersal mechanisms", fillcolor="#fef9c3"];
 
-        tech [label="3D: Technology &\nDual-Use Equipment\n\nWassenaar list check\nWeapons applicability\nAI/ML misuse checklist\nSurveillance implications", fillcolor="#e0e7ff"];
+        tech [label="3D: Technology & Dual-Use Equipment\n\nWassenaar list check\nWeapons applicability\nAI/ML misuse checklist\nAdvanced materials\nRobotics & autonomous platforms\nQuantum technologies\nCybersecurity\nSurveillance implications", fillcolor="#e0e7ff"];
 
         infohazard [label="3E: Information Hazards\n& Publication Risk\n\nRoadmap assessment\nBarrier-lowering check\nRestricted publication options", fillcolor="#fef3c7"];
     }
@@ -93,7 +93,7 @@ digraph assessment_flow {
         labeljust=l; fontsize=12; fontname="Helvetica-Bold";
         style=rounded; color="#94a3b8"; fillcolor="#f8fafc"; penwidth=1.5;
 
-        reflect_naive [label="Naive: Structured reflection prompts\ntailored to identified domains\n\n'Imagine your research succeeds.\nWhat is the most harmful thing\nsomeone could do with it?'\n\n[I have reflected on this]", fillcolor="#dbeafe"];
+        reflect_naive [label="Naive: Structured reflection prompts\ntailored to identified domains\n\n'Imagine your research succeeds.\nWhat is the most harmful thing\nsomeone could do with it?'\n\n[I have reflected on this]\n\nNudge: 'Augmented mode provides\na richer experience for this step'", fillcolor="#dbeafe"];
 
         reflect_aug [label="Augmented: Free-text reflection\n\n'What potential misuse applications\ncould there be if your research\nis successful?'\n\nLLM classifies concerns +\nsurfaces additional considerations", fillcolor="#fef9c3"];
     }

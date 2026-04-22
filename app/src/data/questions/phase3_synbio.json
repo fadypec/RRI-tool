@@ -1,0 +1,56 @@
+{
+  "id": "synbio",
+  "title": "Genetic Modification & Synthetic Biology",
+  "description": "Questions about genetic engineering, synthetic biology, and de novo synthesis in your research.",
+  "questions": [
+    {
+      "id": "synbio-capability",
+      "text": "What capabilities are being engineered or what functions are being modified?",
+      "type": "free-text",
+      "signals": []
+    },
+    {
+      "id": "synbio-gof-overlap",
+      "text": "Do the modifications you are making overlap with any gain-of-function categories (enhanced transmissibility, virulence, host range, immune evasion, therapeutic resistance)?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "synbio-gof-overlap", "concernTitle": "Genetic modification with gain-of-function implications", "concernDescription": "Your genetic modifications overlap with recognised gain-of-function categories. This requires the same dual-use consideration as direct gain-of-function work.", "templateBlocks": ["2-BIO-GOF", "3-MIT-RISK-ASSESSMENT"] },
+        { "when": "unsure", "signal": "note", "concernId": "synbio-gof-unsure", "concernTitle": "Gain-of-function overlap uncertain", "concernDescription": "You were unsure whether your modifications overlap with gain-of-function categories. Consider reviewing the categories listed in Phase 3A.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "synbio-denovo",
+      "text": "Does your work involve creating genetic sequences de novo — either by synthesising them yourself (e.g., benchtop device) or by ordering synthetic nucleic acids from a commercial provider (e.g., IDT, Twist Bioscience, GenScript)?",
+      "type": "multi-select",
+      "options": [
+        { "id": "denovo-inhouse", "label": "Yes, in-house synthesis", "signal": "note" },
+        { "id": "denovo-provider", "label": "Yes, ordered from a commercial provider", "signal": "note" },
+        { "id": "denovo-both", "label": "Yes, both", "signal": "note" },
+        { "id": "denovo-no", "label": "No", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "denovo-inhouse", "signal": "note", "concernId": "synbio-denovo", "concernTitle": "De novo nucleic acid synthesis", "concernDescription": "Your project involves de novo synthesis of genetic sequences. Commercial providers typically screen orders, but researchers retain responsibility for understanding dual-use implications.", "templateBlocks": ["2-SYNBIO-DENOVO", "3-MIT-SCREENING"] },
+        { "when": "denovo-provider", "signal": "note", "concernId": "synbio-denovo", "concernTitle": "De novo nucleic acid synthesis", "concernDescription": "Your project involves ordering synthetic sequences from a provider. Provider screening varies by company and jurisdiction.", "templateBlocks": ["2-SYNBIO-DENOVO", "3-MIT-SCREENING"] },
+        { "when": "denovo-both", "signal": "note", "concernId": "synbio-denovo", "concernTitle": "De novo nucleic acid synthesis", "concernDescription": "Your project involves both in-house and provider-sourced synthetic sequences.", "templateBlocks": ["2-SYNBIO-DENOVO", "3-MIT-SCREENING"] }
+      ],
+      "followUp": {
+        "condition": "any-selected",
+        "text": "Could these sequences, or parts of them, encode proteins or functions associated with pathogenicity, toxicity, or immune evasion?",
+        "type": "yes-no-unsure",
+        "signals": [
+          { "when": "yes", "signal": "significant", "concernId": "synbio-denovo-path", "concernTitle": "Synthetic sequences with pathogenicity potential", "concernDescription": "Your synthetic sequences could encode pathogenicity or toxicity functions. This is a significant dual-use concern that requires careful oversight.", "templateBlocks": ["2-SYNBIO-DENOVO", "3-MIT-SCREENING", "3-MIT-RISK-ASSESSMENT"] },
+          { "when": "unsure", "signal": "moderate", "concernId": "synbio-denovo-path-unsure", "concernTitle": "Pathogenicity potential of synthetic sequences uncertain", "concernDescription": "You were unsure whether your synthetic sequences could encode pathogenicity functions. Consider having a bioinformatics screen performed.", "templateBlocks": ["2-SYNBIO-DENOVO"] }
+        ]
+      }
+    },
+    {
+      "id": "synbio-pathogen-transfer",
+      "text": "Could your genetic constructs be transferred to, or function in, pathogenic organisms?",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "synbio-construct-transfer", "concernTitle": "Constructs transferable to pathogens", "concernDescription": "Your genetic constructs could function in pathogenic organisms. This transferability is a dual-use consideration.", "templateBlocks": ["2-SYNBIO-CONSTRUCT"] },
+        { "when": "unsure", "signal": "note", "concernId": "synbio-construct-unsure", "concernTitle": "Construct transferability uncertain", "concernDescription": "You were unsure whether your constructs could function in pathogenic organisms.", "templateBlocks": [] }
+      ]
+    }
+  ]
+}

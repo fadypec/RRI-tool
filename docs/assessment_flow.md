@@ -13,6 +13,7 @@ Brief explanation of what the tool does and doesn't do:
 - "This tool helps you reflect on the dual-use and security implications of your research."
 - "It is a reflection aid, not a compliance check. It does not replace institutional review."
 - "Nothing you enter is stored on our servers."
+- "This is an independent tool developed by the Centre for Long-Term Resilience. It has been developed entirely without oversight or endorsement from UKRI or any other funding body."
 
 ### Screen 0b: Mode Selection
 Prominent toggle with clear explanation:
@@ -86,10 +87,13 @@ This is where naive and augmented modes diverge most significantly.
 
 **Technology and information:**
 - [ ] Autonomous systems, AI, or machine learning
+- [ ] Robotics or autonomous platforms (drones, unmanned vehicles, robotic manipulation systems)
 - [ ] Dual-use equipment (fermenters, centrifuges, spray dryers, etc.)
 - [ ] Nuclear or radiological materials
+- [ ] Advanced materials (metamaterials, nanomaterials, energetic materials, high-performance composites)
+- [ ] Quantum computing, quantum sensing, or quantum communications
 - [ ] Surveillance, monitoring, or tracking technologies
-- [ ] Encryption, cybersecurity, or offensive cyber capabilities
+- [ ] Cybersecurity, encryption, or offensive cyber capabilities
 - [ ] Data or methods that could lower barriers to creating dangerous agents or materials
 
 **Cross-cutting:**
@@ -128,12 +132,18 @@ Based on the categories selected/identified in Phase 2, the tool presents releva
 *Triggered by: Biological agents, Pathogen characterisation/enhancement, Gain-of-function*
 
 **3A.1** "Which organisms or biological agents does your research involve?"
-- Free text (naive) or extracted from pasted text (augmented)
-- Tool checks against ACDP Hazard Group classifications and Australia Group biological agents list
-- If a match is found, the tool surfaces the classification with context:
-  > "You mentioned *Mycobacterium tuberculosis*. This is classified as ACDP Hazard Group 3 and is on the Australia Group list of biological agents. Have you considered the containment and oversight requirements this implies?"
+
+**Naive mode:** Searchable autocomplete field against the curated ACDP Hazard Group and Australia Group biological agents lists. The researcher starts typing an organism name (common or systematic) and the tool suggests matches. Multiple organisms can be added. This is deterministic — no AI, no fuzzy guessing. If the researcher types something not in the reference lists, the tool flags it explicitly:
+> "This organism was not found in our reference lists. This does not mean it is safe — our lists may not be exhaustive. Consider checking the ACDP Approved List of Biological Agents directly."
+
+**Augmented mode:** Entity extraction from pasted text identifies organisms and matches them against the same curated lists, pre-populating the autocomplete field for the researcher to confirm.
+
+In both modes, if a match is found, the tool surfaces the classification with context:
+> "You mentioned *Mycobacterium tuberculosis*. This is classified as ACDP Hazard Group 3 and is on the Australia Group list of biological agents. Have you considered the containment and oversight requirements this implies?"
 
 **3A.2** "Does your research involve any of the following?" (select all that apply)
+
+*Core categories (from the US DURC policy, internationally recognised):*
 - [ ] Enhancing transmissibility of a pathogen
 - [ ] Enhancing virulence or pathogenicity
 - [ ] Expanding host range
@@ -142,7 +152,14 @@ Based on the categories selected/identified in Phase 2, the tool presents releva
 - [ ] Rendering a population more susceptible to an agent
 - [ ] Generating or reconstituting an eradicated or extinct agent
 
-(These are the seven categories from the US DURC policy — widely recognised internationally as the canonical gain-of-function concern list.)
+*Additional categories (from the Canadian PHAC dual-use framework):*
+- [ ] Enhancing environmental stability or resistance to decontamination
+- [ ] Conferring novel toxin production capacity
+- [ ] Enhancing capacity to interfere with diagnostics or surveillance
+- [ ] Increasing horizontal gene transfer potential
+- [ ] Enhancing dispersal or release capacity
+
+(The core seven categories are from the US DURC policy. The additional categories are drawn from the Canadian Public Health Agency's dual-use assessment tool (PHAC, Section 3 / Figure 3-1), which extends the concern list to cover environmental persistence, diagnostic evasion, and dissemination — dimensions particularly relevant to biodefence and public health preparedness. See `references/canadian_durc_framework.md` for the full source.)
 
 **3A.3** "Could the methods or techniques you are developing be applied to organisms other than your study organism — including organisms that could be weaponised?"
 - Yes / No / Unsure
@@ -162,10 +179,11 @@ Based on the categories selected/identified in Phase 2, the tool presents releva
 - Free text / extracted
 - Tool checks for overlap with gain-of-function concern categories (3A.2)
 
-**3B.3** "Does your work involve synthesising genetic sequences de novo?"
-- Yes / No
-- If Yes: "Could these sequences, or parts of them, encode proteins or functions associated with pathogenicity, toxicity, or immune evasion?"
+**3B.3** "Does your work involve creating genetic sequences de novo — either by synthesising them yourself (e.g., using a benchtop synthesis device) OR by ordering synthetic nucleic acid sequences from a commercial provider (e.g., IDT, Twist Bioscience, GenScript)?"
+- Yes, in-house synthesis / Yes, ordered from a provider / Yes, both / No
+- If any Yes: "Could these sequences, or parts of them, encode proteins or functions associated with pathogenicity, toxicity, or immune evasion?"
   - Yes / No / Unsure
+- Note: Commercial providers typically screen orders against controlled sequence databases, but this screening varies by provider and jurisdiction. Researchers retain responsibility for understanding the dual-use implications of the sequences they design, regardless of how they are produced.
 
 **3B.4** "Could your genetic constructs be transferred to, or function in, pathogenic organisms?"
 - Yes / No / Unsure
@@ -212,6 +230,33 @@ Based on the categories selected/identified in Phase 2, the tool presents releva
 - Yes / No / Unsure
 - If Yes: "Have you considered the implications for privacy, civil liberties, and potential misuse by authoritarian regimes?"
 
+**3D.5** "Does your work involve advanced materials with potential dual-use applications?"
+- [ ] Metamaterials with stealth, cloaking, or signal-manipulation properties
+- [ ] Nanomaterials with potential for targeted delivery of harmful agents
+- [ ] High-performance energetic materials or propellants
+- [ ] Materials with nuclear or radiological shielding/concentration applications
+- [ ] Composites or coatings with military-grade performance characteristics
+
+**3D.6** "Does your work involve robotics, autonomous platforms, or unmanned systems?"
+- [ ] Autonomous navigation or targeting capabilities
+- [ ] Platforms capable of carrying or dispersing payloads
+- [ ] Swarm coordination or multi-agent autonomous systems
+- [ ] Remote manipulation of hazardous materials
+- If any selected: "Could these capabilities be adapted for weapons delivery, autonomous targeting, or circumventing physical security measures?"
+
+**3D.7** "Does your work involve quantum technologies?"
+- [ ] Quantum computing with implications for breaking current encryption
+- [ ] Quantum sensing with implications for covert detection or surveillance
+- [ ] Quantum communications with implications for undetectable signalling
+- If any selected: "Have you considered the national security implications of these capabilities, particularly regarding cryptographic infrastructure?"
+
+**3D.8** "Does your cybersecurity research involve any of the following?"
+- [ ] Discovery or development of novel attack vectors or exploits
+- [ ] Tools or methods for bypassing security controls
+- [ ] Research into vulnerabilities in critical national infrastructure
+- [ ] Offensive cyber capabilities, even if developed for defensive purposes
+- If any selected: "Have you considered responsible disclosure practices and whether detailed publication could enable malicious use?"
+
 ### 3E: Information Hazards and Publication Risk
 *Triggered by: Data/methods as barrier-lowering, Research outputs enabling harm, OR triggered as a cross-cutting module for any amber/red items from 3A-3D*
 
@@ -247,6 +292,9 @@ General (always shown):
 > "Beyond deliberate misuse, could your research cause accidental harm — through environmental release, unintended consequences of application, or misunderstanding of your findings?"
 
 These are reflection prompts — the tool does not collect answers in naive mode. They are presented for the researcher to think about, with a "I have reflected on this" acknowledgement button to proceed.
+
+**Augmented mode nudge (shown only in naive mode):**
+> "Using augmented mode for this step provides a significantly richer experience. You can describe your misuse concerns in your own words, and the tool will map them against known risk categories and may surface additional considerations you haven't thought of. [Switch to augmented mode]"
 
 ### Augmented Mode — Screen 4a: Free-Text Misuse Reflection
 

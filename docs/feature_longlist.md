@@ -15,3 +15,5 @@ Visual radar/spider chart showing the researcher's grant application scored acro
 - How do we avoid false precision — a radar chart implies quantification, which may overstate confidence
 - Could this be gamed (researchers adjusting answers to flatten the chart)?
 - Is this a useful reflection artefact or a misleading one?
+
+**Note:** The two-axis assessment plot (Concern Level vs. Preparedness) is now a v1.0 core feature, defined in `scoring_framework.md`. The radar chart would be a complementary visualisation showing *which specific dimensions* contribute to the concern level — a drill-down from the assessment plot. Consider this as a v1.1+ enhancement after the core two-axis plot is validated with users.

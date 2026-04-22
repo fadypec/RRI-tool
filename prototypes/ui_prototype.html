@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RRI Dual-Use Assessment Tool — UI Prototype</title>
+
+<!-- Fonts: Instrument Serif for headings (distinctive, modern serif), Plus Jakarta Sans for body -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Core palette */
+    --ink: #1a1f2e;
+    --ink-muted: #4a5068;
+    --ink-light: #8890a4;
+    --surface: #faf9f6;
+    --surface-warm: #f4f2ed;
+    --surface-card: #ffffff;
+    --border: #e8e6e1;
+    --border-strong: #d4d1ca;
+
+    /* Accent — warm amber/gold */
+    --accent: #c4943a;
+    --accent-hover: #a87d30;
+    --accent-light: #f5eddd;
+    --accent-glow: rgba(196, 148, 58, 0.12);
+
+    /* Tiering — sophisticated, muted versions */
+    --tier-low: #3d8b6e;
+    --tier-low-bg: #eef7f2;
+    --tier-low-surface: #d4eddf;
+    --tier-moderate: #b8883b;
+    --tier-moderate-bg: #fdf6eb;
+    --tier-moderate-surface: #f5e6c8;
+    --tier-significant: #b54d4d;
+    --tier-significant-bg: #fcf0f0;
+    --tier-significant-surface: #f2d4d4;
+
+    /* Preparedness */
+    --prep-none: #b54d4d;
+    --prep-partial: #b8883b;
+    --prep-managed: #3d8b6e;
+
+    /* Typography */
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+    --space-4xl: 6rem;
+
+    /* Layout */
+    --content-width: 720px;
+    --page-padding: 2rem;
+
+    /* Stepper background */
+    --stepper-bg: rgba(250, 249, 246, 0.92);
+  }
+
+  /* ─── Dark Mode ─── */
+  [data-theme="dark"] {
+    --ink: #e8e6e1;
+    --ink-muted: #b0a89c;
+    --ink-light: #7a7368;
+    --surface: #1a1d24;
+    --surface-warm: #22262e;
+    --surface-card: #272b34;
+    --border: #363a44;
+    --border-strong: #484d58;
+
+    --accent: #d4a843;
+    --accent-hover: #e0b854;
+    --accent-light: #2e2820;
+    --accent-glow: rgba(212, 168, 67, 0.15);
+
+    --tier-low: #5aad8a;
+    --tier-low-bg: #1e2c26;
+    --tier-low-surface: #243830;
+    --tier-moderate: #d4a843;
+    --tier-moderate-bg: #2e2820;
+    --tier-moderate-surface: #3a3228;
+    --tier-significant: #d46a6a;
+    --tier-significant-bg: #2e1e1e;
+    --tier-significant-surface: #3a2626;
+
+    --stepper-bg: rgba(26, 29, 36, 0.92);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--surface);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ─── Page sections (each screen is a section) ─── */
+  .screen {
+    min-height: 100vh;
+    padding: var(--space-4xl) var(--page-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .screen + .screen {
+    border-top: 1px solid var(--border);
+  }
+
+  .screen__label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: var(--space-2xl);
+    display: inline-block;
+  }
+
+  .content {
+    max-width: var(--content-width);
+    width: 100%;
+  }
+
+  /* ─── Typography ─── */
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 3.2rem;
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-lg);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: var(--space-md);
+  }
+
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    margin-bottom: var(--space-sm);
+  }
+
+  p {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    margin-bottom: var(--space-md);
+  }
+
+  p.lead {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ink-muted);
+  }
+
+  .text-small {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+  }
+
+  /* ─── Navigation / Progress Stepper ─── */
+  .stepper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--stepper-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem var(--page-padding);
+  }
+
+  .stepper__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .stepper__brand {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-right: var(--space-xl);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .stepper__steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+  }
+
+  .stepper__step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink-light);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+
+  .stepper__step--active {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .stepper__step--done {
+    color: var(--tier-low);
+  }
+
+  .stepper__step-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--border-strong);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .stepper__step--active .stepper__step-dot {
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .stepper__step--done .stepper__step-dot {
+    background: var(--tier-low);
+  }
+
+  .stepper__line {
+    width: 24px;
+    height: 1px;
+    background: var(--border);
+    margin: 0 0.3rem;
+    flex-shrink: 0;
+  }
+
+  /* ─── Cards ─── */
+  .card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 2px 12px rgba(26, 31, 46, 0.04);
+  }
+
+  .card--selected {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--surface-card) 0%, var(--accent-light) 100%);
+    box-shadow: 0 2px 16px var(--accent-glow);
+  }
+
+  /* ─── Mode Toggle ─── */
+  .mode-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin: var(--space-xl) 0;
+  }
+
+  .mode-option {
+    background: var(--surface-card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .mode-option:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+
+  .mode-option--active {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, var(--surface-card) 0%, var(--accent-light) 100%);
+  }
+
+  .mode-option__badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .mode-option__badge--default {
+    background: var(--tier-low-bg);
+    color: var(--tier-low);
+  }
+
+  .mode-option__badge--augmented {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .mode-option__title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: var(--space-xs);
+  }
+
+  .mode-option__desc {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ─── Notice / Disclaimer ─── */
+  .notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--surface-warm);
+    border-radius: 10px;
+    border-left: 3px solid var(--ink-light);
+    margin: var(--space-xl) 0;
+  }
+
+  .notice__icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .notice p {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ─── Buttons ─── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.8rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .btn--primary {
+    background: var(--ink);
+    color: var(--surface);
+  }
+
+  .btn--primary:hover {
+    background: #2a3048;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(26, 31, 46, 0.2);
+  }
+
+  .btn--secondary {
+    background: var(--surface-card);
+    color: var(--ink);
+    border: 1px solid var(--border-strong);
+  }
+
+  .btn--secondary:hover {
+    background: var(--surface-warm);
+    border-color: var(--ink-light);
+  }
+
+  .btn--large {
+    padding: 1rem 2.2rem;
+    font-size: 1.05rem;
+    border-radius: 12px;
+  }
+
+  .btn--accent {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn--accent:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(196, 148, 58, 0.3);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  /* ─── Checkbox list (Phase 2 categories) ─── */
+  .category-group {
+    margin-bottom: var(--space-xl);
+  }
+
+  .category-group__title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .category-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    margin-bottom: 2px;
+  }
+
+  .category-item:hover {
+    background: var(--surface-warm);
+  }
+
+  .category-item--checked {
+    background: var(--accent-light);
+  }
+
+  .category-item__checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-strong);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: var(--surface-card);
+  }
+
+  .category-item--checked .category-item__checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .category-item__check-icon {
+    color: white;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .category-item--checked .category-item__check-icon {
+    opacity: 1;
+  }
+
+  .category-item__label {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .category-item__help {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    margin-top: 0.2rem;
+    display: none;
+  }
+
+  /* ─── Results: Assessment Grid ─── */
+  .results-hero {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .assessment-grid-container {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: var(--space-2xl) var(--space-2xl) var(--space-2xl);
+    margin: var(--space-xl) 0;
+    box-shadow: 0 4px 24px rgba(26, 31, 46, 0.06);
+  }
+
+  .assessment-grid {
+    display: grid;
+    grid-template-columns: auto repeat(3, 140px);
+    grid-template-rows: repeat(3, 120px) auto;
+    gap: 5px;
+    margin: 0 auto;
+  }
+
+  /* Y-axis tick labels */
+  .grid-ylabel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  /* X-axis tick labels */
+  .grid-xlabel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .grid-corner { /* empty top-left cell */ }
+
+  /* Grid cells */
+  .grid-cell {
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-align: center;
+    line-height: 1.4;
+    padding: 0.5rem;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+
+  /* Inactive cells are slightly muted */
+  .grid-cell:not(.grid-cell--active) {
+    opacity: 0.55;
+  }
+
+  /* Active cell spotlight */
+  .grid-cell--active {
+    opacity: 1;
+    font-weight: 700;
+    color: var(--ink);
+    animation: spotlight-pulse 2.5s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  @keyframes spotlight-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; transform: scale(1); }
+    50% { box-shadow: 0 0 24px 4px var(--spotlight-glow); transform: scale(1.03); }
+  }
+
+  /*
+   * Grid color design: 2D gradient from red (top-left) to green (bottom-right).
+   * Each cell must be clearly distinguishable from its neighbors.
+   * Text must be legible on every cell in both modes.
+   */
+
+  /* Day mode — saturated enough to read, not garish */
+  .grid-cell--r0c0 { background: #e89898; color: #4a1a1a; --spotlight-glow: rgba(181, 77, 77, 0.3); }
+  .grid-cell--r0c1 { background: #e8be80; color: #4a3010; --spotlight-glow: rgba(184, 136, 59, 0.3); }
+  .grid-cell--r0c2 { background: #88c498; color: #1a3a22; --spotlight-glow: rgba(61, 139, 110, 0.3); }
+  .grid-cell--r1c0 { background: #dca870; color: #3e2810; --spotlight-glow: rgba(184, 120, 59, 0.3); }
+  .grid-cell--r1c1 { background: #ccc478; color: #3a3810; --spotlight-glow: rgba(180, 160, 60, 0.3); }
+  .grid-cell--r1c2 { background: #6cb888; color: #14382a; --spotlight-glow: rgba(61, 139, 110, 0.3); }
+  .grid-cell--r2c0 { background: #bab470; color: #34320e; --spotlight-glow: rgba(160, 140, 80, 0.3); }
+  .grid-cell--r2c1 { background: #80b468; color: #1e3410; --spotlight-glow: rgba(80, 140, 50, 0.3); }
+  .grid-cell--r2c2 { background: #4ca870; color: #0e3020; --spotlight-glow: rgba(40, 140, 80, 0.35); }
+
+  /* Night mode — rich and clearly differentiated */
+  [data-theme="dark"] .grid-cell--r0c0 { background: #7a3030; color: #f0c8c8; --spotlight-glow: rgba(200, 80, 80, 0.35); }
+  [data-theme="dark"] .grid-cell--r0c1 { background: #7a5520; color: #f0dab0; --spotlight-glow: rgba(220, 170, 60, 0.35); }
+  [data-theme="dark"] .grid-cell--r0c2 { background: #286838; color: #b0e0c0; --spotlight-glow: rgba(80, 200, 120, 0.35); }
+  [data-theme="dark"] .grid-cell--r1c0 { background: #6a4418; color: #ecd4a8; --spotlight-glow: rgba(200, 150, 60, 0.35); }
+  [data-theme="dark"] .grid-cell--r1c1 { background: #5e5818; color: #e0dca0; --spotlight-glow: rgba(210, 200, 70, 0.35); }
+  [data-theme="dark"] .grid-cell--r1c2 { background: #1a5c40; color: #98d8b8; --spotlight-glow: rgba(60, 190, 130, 0.35); }
+  [data-theme="dark"] .grid-cell--r2c0 { background: #505018; color: #d8d498; --spotlight-glow: rgba(190, 180, 70, 0.35); }
+  [data-theme="dark"] .grid-cell--r2c1 { background: #2a5c22; color: #b0dc98; --spotlight-glow: rgba(80, 190, 60, 0.35); }
+  [data-theme="dark"] .grid-cell--r2c2 { background: #147040; color: #88e0a8; --spotlight-glow: rgba(40, 220, 100, 0.4); }
+
+  [data-theme="dark"] .grid-cell--active {
+    color: inherit;
+  }
+
+  /* Axis title labels */
+  .grid-with-ytitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .grid-axis-title--y {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  .grid-axis-title--x {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: center;
+    grid-column: 2 / 5;
+    padding-top: 4px;
+  }
+
+  /* ─── Results: Concern details ─── */
+  .concern-item {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: var(--space-md);
+    border-left: 3px solid var(--tier-moderate);
+  }
+
+  .concern-item--significant {
+    border-left-color: var(--tier-significant);
+    background: var(--tier-significant-bg);
+  }
+
+  .concern-item--moderate {
+    border-left-color: var(--tier-moderate);
+    background: var(--tier-moderate-bg);
+  }
+
+  .concern-item__signal {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    height: fit-content;
+  }
+
+  .concern-item__signal--significant {
+    background: var(--tier-significant-surface);
+    color: var(--tier-significant);
+  }
+
+  .concern-item__signal--moderate {
+    background: var(--tier-moderate-surface);
+    color: var(--tier-moderate);
+  }
+
+  .concern-item__text {
+    flex: 1;
+  }
+
+  .concern-item__title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .concern-item__desc {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ─── Results: Template output ─── */
+  .template-output {
+    background: var(--surface-warm);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    margin: var(--space-xl) 0;
+    position: relative;
+  }
+
+  .template-output__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+  }
+
+  .template-output__text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .template-output__text .placeholder {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.88rem;
+  }
+
+  /* ─── Export bar ─── */
+  .export-bar {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: var(--space-lg) var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: var(--space-xl) 0;
+    color: var(--surface);
+  }
+
+  .export-bar__text {
+    font-size: 0.9rem;
+    color: rgba(250, 249, 246, 0.75);
+  }
+
+  .export-bar__text strong {
+    color: var(--surface);
+  }
+
+  .export-bar__buttons {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .btn--export {
+    background: rgba(255,255,255,0.12);
+    color: var(--surface);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
+  }
+
+  .btn--export:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+  }
+
+  /* ─── Section divider ─── */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--border-strong);
+    margin: var(--space-2xl) 0;
+  }
+
+  /* ─── Screen separator label ─── */
+  .screen-sep {
+    text-align: center;
+    padding: var(--space-2xl) 0;
+    background: var(--surface-warm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .screen-sep h3 {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin: 0;
+  }
+
+  /* ─── Dark mode component overrides ─── */
+  [data-theme="dark"] .btn--primary {
+    background: var(--accent);
+    color: #1a1d24;
+  }
+  [data-theme="dark"] .btn--primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 16px rgba(212, 168, 67, 0.3);
+  }
+  [data-theme="dark"] .export-bar {
+    background: #12141a;
+    border: 1px solid var(--border);
+  }
+  [data-theme="dark"] .mode-option--active {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, var(--surface-card) 0%, var(--accent-light) 100%);
+  }
+  [data-theme="dark"] .category-item--checked {
+    background: var(--accent-light);
+  }
+  [data-theme="dark"] .notice {
+    border-left-color: var(--ink-light);
+  }
+  /* (dot removed — using spotlight instead) */
+
+  /* ─── Hamburger Menu ─── */
+  .nav-menu-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+  }
+
+  .nav-menu-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-card);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .nav-menu-btn:hover {
+    border-color: var(--border-strong);
+    background: var(--surface-warm);
+  }
+
+  .nav-menu-btn__line {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--ink-muted);
+    border-radius: 1px;
+  }
+
+  .nav-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.4rem;
+    min-width: 200px;
+    box-shadow: 0 8px 30px rgba(26, 31, 46, 0.12);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 200;
+  }
+
+  .nav-menu-dropdown--open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-menu-dropdown__item {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-radius: 6px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+  }
+
+  .nav-menu-dropdown__item:hover {
+    background: var(--surface-warm);
+    color: var(--ink);
+  }
+
+  .nav-menu-dropdown__divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.3rem 0.5rem;
+  }
+
+  .theme-label-dark { display: none; }
+  [data-theme="dark"] .theme-label-light { display: none; }
+  [data-theme="dark"] .theme-label-dark { display: inline; }
+
+  /* ─── Fade-in animation ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(3) { animation-delay: 0.2s; }
+  .fade-in:nth-child(4) { animation-delay: 0.3s; }
+  .fade-in:nth-child(5) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    .mode-toggle { grid-template-columns: 1fr; }
+    .stepper__steps { display: none; }
+    .assessment-grid { width: 320px; height: 320px; }
+    .grid-cell { width: 98px; height: 98px; }
+    .grid-cell[data-row="0"][data-col="1"] { left: 112px; }
+    .grid-cell[data-row="0"][data-col="2"] { left: 214px; }
+    .grid-cell[data-row="1"][data-col="0"] { top: 112px; }
+    .grid-cell[data-row="1"][data-col="1"] { top: 112px; left: 112px; }
+    .grid-cell[data-row="1"][data-col="2"] { top: 112px; left: 214px; }
+    .grid-cell[data-row="2"][data-col="0"] { top: 214px; }
+    .grid-cell[data-row="2"][data-col="1"] { top: 214px; left: 112px; }
+    .grid-cell[data-row="2"][data-col="2"] { top: 214px; left: 214px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- FIXED STEPPER NAV                          -->
+<!-- ═══════════════════════════════════════════ -->
+<nav class="stepper">
+  <div class="stepper__inner">
+    <div class="stepper__brand">Dual-Use Lens</div>
+    <div class="stepper__steps">
+      <div class="stepper__step stepper__step--done">
+        <span class="stepper__step-dot"></span>
+        Welcome
+      </div>
+      <div class="stepper__line"></div>
+      <div class="stepper__step stepper__step--done">
+        <span class="stepper__step-dot"></span>
+        Context
+      </div>
+      <div class="stepper__line"></div>
+      <div class="stepper__step stepper__step--active">
+        <span class="stepper__step-dot"></span>
+        Research Profile
+      </div>
+      <div class="stepper__line"></div>
+      <div class="stepper__step">
+        <span class="stepper__step-dot"></span>
+        Deep Dive
+      </div>
+      <div class="stepper__line"></div>
+      <div class="stepper__step">
+        <span class="stepper__step-dot"></span>
+        Reflection
+      </div>
+      <div class="stepper__line"></div>
+      <div class="stepper__step">
+        <span class="stepper__step-dot"></span>
+        Safeguards
+      </div>
+      <div class="stepper__line"></div>
+      <div class="stepper__step">
+        <span class="stepper__step-dot"></span>
+        Results
+      </div>
+    </div>
+    <div class="nav-menu-wrapper">
+      <button class="nav-menu-btn" onclick="document.querySelector('.nav-menu-dropdown').classList.toggle('nav-menu-dropdown--open')" aria-label="Menu">
+        <span class="nav-menu-btn__line"></span>
+        <span class="nav-menu-btn__line"></span>
+        <span class="nav-menu-btn__line"></span>
+      </button>
+      <div class="nav-menu-dropdown">
+        <a href="#" class="nav-menu-dropdown__item">About this tool</a>
+        <a href="#" class="nav-menu-dropdown__item">Privacy</a>
+        <div class="nav-menu-dropdown__divider"></div>
+        <button class="nav-menu-dropdown__item" onclick="toggleTheme(); document.querySelector('.nav-menu-dropdown').classList.remove('nav-menu-dropdown--open');">
+          <span class="theme-label-light">Switch to night mode</span>
+          <span class="theme-label-dark">Switch to day mode</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SCREEN 1: WELCOME                          -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="screen" style="padding-top: 8rem;">
+  <div class="content">
+    <div class="fade-in">
+      <span class="screen__label">Prototype Screen 1 of 3</span>
+    </div>
+
+    <h1 class="fade-in">A structured lens for<br><em>dual-use</em> reflection</h1>
+
+    <p class="lead fade-in">
+      This tool helps you think through the security and dual-use implications of your research.
+      It surfaces considerations you might not have encountered and helps you articulate them
+      in your grant application.
+    </p>
+
+    <div class="notice fade-in">
+      <span class="notice__icon">&#9432;</span>
+      <div>
+        <p>
+          This is an independent tool developed by the Centre for Long-Term Resilience.
+          It is <strong>not endorsed by UKRI</strong> or any other funding body. It is a reflection aid,
+          not a compliance check, and does not replace institutional review.
+        </p>
+        <p style="margin-top: 0.5rem;">
+          <strong>Nothing you enter is stored on our servers.</strong> Your assessment results exist only in your browser session.
+        </p>
+      </div>
+    </div>
+
+    <div class="divider fade-in"></div>
+
+    <h2 class="fade-in">Choose your mode</h2>
+    <p class="fade-in">You can switch modes at any point during the assessment.</p>
+
+    <div class="mode-toggle fade-in">
+      <div class="mode-option mode-option--active" onclick="this.classList.add('mode-option--active'); this.nextElementSibling.classList.remove('mode-option--active');">
+        <span class="mode-option__badge mode-option__badge--default">Default</span>
+        <div class="mode-option__title">Standard</div>
+        <p class="mode-option__desc">
+          Guided questionnaire only. Your research content never leaves your machine. No AI is used.
+        </p>
+      </div>
+      <div class="mode-option" onclick="this.classList.add('mode-option--active'); this.previousElementSibling.classList.remove('mode-option--active');">
+        <span class="mode-option__badge mode-option__badge--augmented">AI-Assisted</span>
+        <div class="mode-option__title">Augmented</div>
+        <p class="mode-option__desc">
+          Adds AI analysis of text you choose to share. Your text is processed but never stored or used for training.
+          <a href="#" style="color: var(--accent); text-decoration: none; font-weight: 500;">Privacy details &rarr;</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="btn-group fade-in">
+      <button class="btn btn--primary btn--large">Begin assessment &rarr;</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<div class="screen-sep">
+  <h3>Prototype Screen 2: Research Profile (Phase 2)</h3>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SCREEN 2: RESEARCH CHARACTERISATION        -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="screen" style="padding-top: 4rem;">
+  <div class="content">
+    <h2>What does your research involve?</h2>
+    <p>Select all that apply. Each selection activates relevant assessment questions in the next step.
+       Hover or tap the <span style="color: var(--ink-light);">(?)</span> for explanations.</p>
+
+    <div class="category-group">
+      <div class="category-group__title">Biological materials and methods</div>
+
+      <div class="category-item category-item--checked" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Biological agents (bacteria, viruses, fungi, prions, toxins)</div>
+        </div>
+      </div>
+
+      <div class="category-item category-item--checked" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Genetic modification or synthetic biology</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Pathogen characterisation, culturing, or enhancement</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Gain-of-function research</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">De novo synthesis of genetic material or whole organisms</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Work with human or animal tissue, cells, or biological samples</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-group">
+      <div class="category-group__title">Chemical materials and methods</div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Chemical synthesis or processing</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Work with chemical precursors on controlled lists</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Novel toxic compounds or pharmaceutically active substances</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Aerosol generation, dispersal, or delivery mechanisms</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-group">
+      <div class="category-group__title">Technology and information</div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Autonomous systems, AI, or machine learning</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Robotics or autonomous platforms</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Quantum computing, quantum sensing, or quantum communications</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Cybersecurity, encryption, or offensive cyber capabilities</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Advanced materials (metamaterials, nanomaterials, energetic materials)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-group">
+      <div class="category-group__title">Cross-cutting</div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">International collaboration with export-controlled regions</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Work with potential military or intelligence applications</div>
+        </div>
+      </div>
+
+      <div class="category-item" onclick="this.classList.toggle('category-item--checked')">
+        <div class="category-item__checkbox">
+          <span class="category-item__check-icon">&#10003;</span>
+        </div>
+        <div>
+          <div class="category-item__label">Research outputs that could enable harm if published in detail</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn--secondary">&larr; Back</button>
+      <button class="btn btn--primary">Continue to deep dive &rarr;</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<div class="screen-sep">
+  <h3>Prototype Screen 3: Results (Phase 6)</h3>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SCREEN 3: RESULTS                          -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="screen" style="padding-top: 4rem;">
+  <div class="content">
+    <div class="results-hero">
+      <h2>Your Assessment</h2>
+      <p>Based on your responses across all phases</p>
+    </div>
+
+    <!-- Assessment Grid -->
+    <div class="assessment-grid-container">
+      <h3 style="text-align: center; margin-bottom: var(--space-lg); color: var(--ink-light); font-weight: 500;">
+        Concern Level vs. Preparedness
+      </h3>
+
+      <div class="grid-with-ytitle">
+        <div class="grid-axis-title--y">Concern Level</div>
+        <div class="assessment-grid">
+          <!-- Row 0: Significant -->
+          <div class="grid-ylabel">Significant</div>
+          <div class="grid-cell grid-cell--r0c0">Seek specialist<br>advice</div>
+          <div class="grid-cell grid-cell--r0c1">Strengthen<br>safeguards</div>
+          <div class="grid-cell grid-cell--r0c2">Strong<br>governance</div>
+
+          <!-- Row 1: Moderate -->
+          <div class="grid-ylabel">Moderate</div>
+          <div class="grid-cell grid-cell--r1c0">Action<br>needed</div>
+          <div class="grid-cell grid-cell--r1c1 grid-cell--active">On<br>track</div>
+          <div class="grid-cell grid-cell--r1c2">Well-<br>documented</div>
+
+          <!-- Row 2: Low -->
+          <div class="grid-ylabel">Low</div>
+          <div class="grid-cell grid-cell--r2c0">Routine<br>awareness</div>
+          <div class="grid-cell grid-cell--r2c1">Good<br>standing</div>
+          <div class="grid-cell grid-cell--r2c2">Exemplary</div>
+
+          <!-- X-axis labels -->
+          <div class="grid-corner"></div>
+          <div class="grid-xlabel">Not addressed</div>
+          <div class="grid-xlabel">Partially</div>
+          <div class="grid-xlabel">Well-managed</div>
+
+          <!-- X-axis title -->
+          <div class="grid-axis-title--x">Preparedness</div>
+        </div>
+      </div><!-- /grid-with-ytitle -->
+
+      <p class="text-small" style="text-align: center; margin-top: var(--space-lg); margin-bottom: 0;">
+        Your research has <strong>moderate dual-use considerations</strong>. You have <strong>partially addressed</strong> them through existing safeguards.
+      </p>
+    </div>
+
+    <!-- Why this rating -->
+    <h3 style="margin-top: var(--space-2xl);">Why this assessment</h3>
+    <p class="text-small" style="margin-bottom: var(--space-lg);">
+      The following factors contributed to your concern level and preparedness rating.
+    </p>
+
+    <div class="concern-item concern-item--moderate">
+      <span class="concern-item__signal concern-item__signal--moderate">Moderate</span>
+      <div class="concern-item__text">
+        <div class="concern-item__title">Australia Group listed organism</div>
+        <p class="concern-item__desc">
+          Your research involves <em>Francisella tularensis</em>, which is on the Australia Group biological agents list.
+          Have you considered the export control and oversight requirements this implies?
+        </p>
+      </div>
+    </div>
+
+    <div class="concern-item concern-item--moderate">
+      <span class="concern-item__signal concern-item__signal--moderate">Moderate</span>
+      <div class="concern-item__text">
+        <div class="concern-item__title">Method transferability</div>
+        <p class="concern-item__desc">
+          You indicated your methods could be applied to organisms other than your study organism,
+          including organisms that could potentially be weaponised. Have you considered how to manage this transferability risk?
+        </p>
+      </div>
+    </div>
+
+    <div class="concern-item concern-item--moderate" style="border-left-color: var(--tier-low);">
+      <span class="concern-item__signal" style="background: var(--tier-low-surface); color: var(--tier-low);">Note</span>
+      <div class="concern-item__text">
+        <div class="concern-item__title">Institutional oversight partially in place</div>
+        <p class="concern-item__desc">
+          You confirmed biosafety committee review but have not yet conducted a formal risk assessment
+          or consulted with a biosecurity officer. Completing these steps would strengthen your position.
+        </p>
+      </div>
+    </div>
+
+    <!-- Template Output -->
+    <div class="template-output">
+      <div class="template-output__header">
+        <h3 style="margin: 0;">Draft RRI text</h3>
+        <button class="btn btn--secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Copy to clipboard</button>
+      </div>
+      <div class="template-output__text">
+        The proposed research involves work with biological agents, specifically
+        <span class="placeholder">[organism name]</span>, which is classified as ACDP Hazard Group
+        <span class="placeholder">[X]</span> and appears on the Australia Group list of biological agents.
+        We have considered the dual-use implications of this work, particularly the potential for
+        methodological transfer to other organisms.
+        <br><br>
+        To mitigate these risks, the project operates under the oversight of
+        <span class="placeholder">[institutional biosafety committee]</span>.
+        We are conducting a formal risk assessment in accordance with the BBSRC/MRC joint policy on
+        research misuse, and will consult with our institutional biosecurity officer prior to
+        commencing experimental work.
+        <br><br>
+        We have considered alternative, lower-risk experimental approaches and will employ
+        <span class="placeholder">[specific containment / methodological safeguards]</span>
+        throughout the project. We are committed to responsible publication practices and will
+        review all outputs for sensitive content prior to submission.
+      </div>
+    </div>
+
+    <!-- Export bar -->
+    <div class="export-bar">
+      <div class="export-bar__text">
+        <strong>Your results are not stored.</strong> Download before closing this page.
+      </div>
+      <div class="export-bar__buttons">
+        <button class="btn btn--export">Download PDF</button>
+        <button class="btn btn--export">Download Markdown</button>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top: var(--space-md);">
+      <span class="notice__icon">&#9432;</span>
+      <div>
+        <p>
+          This assessment does not replace institutional review. The concern level reflects the inherent
+          dual-use characteristics of your research; the preparedness axis reflects the safeguards you
+          have described. For broader RRI dimensions, see:
+          <a href="#" style="color: var(--accent); text-decoration: none;">TAS Hub RRI Cards</a>,
+          <a href="#" style="color: var(--accent); text-decoration: none;">Turing Commons</a>,
+          <a href="#" style="color: var(--accent); text-decoration: none;">UKRI Guidance</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="card" style="margin-top: var(--space-xl); text-align: center;">
+      <h3>Help us improve</h3>
+      <p class="text-small" style="margin-bottom: var(--space-md);">Your feedback is anonymous and helps us refine the tool.</p>
+      <p style="margin-bottom: var(--space-md); font-size: 0.95rem; color: var(--ink);">Did this assessment surface anything you hadn't previously considered?</p>
+      <div style="display: flex; gap: var(--space-sm); justify-content: center;">
+        <button class="btn btn--secondary" style="padding: 0.5rem 1.5rem;">Yes</button>
+        <button class="btn btn--secondary" style="padding: 0.5rem 1.5rem;">No</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div style="height: 4rem;"></div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+// Default to light; user can toggle
+document.documentElement.setAttribute('data-theme', 'light');
+</script>
+
+</body>
+</html>

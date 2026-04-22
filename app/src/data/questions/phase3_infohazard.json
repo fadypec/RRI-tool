@@ -1,0 +1,41 @@
+{
+  "id": "info-hazard",
+  "title": "Information Hazards & Publication Risk",
+  "description": "Questions about whether publishing your research could enable harmful applications.",
+  "questions": [
+    {
+      "id": "info-roadmap",
+      "text": "If your research is published in full detail, could it provide a 'roadmap' that would meaningfully assist someone seeking to cause harm?",
+      "helpText": "Consider whether your published methods, results, and data — taken together — would give a malicious actor a significant advantage they wouldn't otherwise have.",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "info-roadmap", "concernTitle": "Publication as roadmap for harm", "concernDescription": "Your detailed publication could provide a roadmap for harmful applications. Consider responsible publication strategies.", "templateBlocks": ["2-INFO-ROADMAP", "3-MIT-PUBLICATION"] },
+        { "when": "unsure", "signal": "note", "concernId": "info-roadmap-unsure", "concernTitle": "Publication roadmap potential uncertain", "concernDescription": "You were unsure whether your publication could serve as a roadmap for harm. Consider discussing with colleagues or a security specialist.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "info-barrier",
+      "text": "Does your research lower the expertise, cost, or access barriers for creating dangerous agents, weapons, or capabilities?",
+      "helpText": "Even beneficial research that simplifies complex processes may lower barriers if the same simplification applies to harmful applications.",
+      "type": "yes-no-unsure",
+      "signals": [
+        { "when": "yes", "signal": "moderate", "concernId": "info-barrier", "concernTitle": "Barrier lowering for harmful capabilities", "concernDescription": "Your research lowers barriers for creating dangerous agents or capabilities. This is a dual-use information hazard.", "templateBlocks": ["2-INFO-BARRIER", "3-MIT-PUBLICATION"] },
+        { "when": "unsure", "signal": "note", "concernId": "info-barrier-unsure", "concernTitle": "Barrier-lowering potential uncertain", "concernDescription": "You were unsure whether your research lowers barriers for harmful applications.", "templateBlocks": [] }
+      ]
+    },
+    {
+      "id": "info-restricted-pub",
+      "text": "Have you considered whether any aspect of your results should be published with restricted detail, or shared only through controlled channels?",
+      "type": "multi-select",
+      "options": [
+        { "id": "pub-yes-considered", "label": "Yes, and we plan to restrict some details", "signal": "none" },
+        { "id": "pub-yes-not-needed", "label": "Yes, we considered it but decided full publication is appropriate", "signal": "none" },
+        { "id": "pub-no", "label": "No, we haven't considered this", "signal": "note" },
+        { "id": "pub-na", "label": "Not applicable to our research", "signal": "none" }
+      ],
+      "signals": [
+        { "when": "pub-no", "signal": "note", "concernId": "info-pub-unconsidered", "concernTitle": "Restricted publication not yet considered", "concernDescription": "You have not yet considered whether any aspects of your results should be published with restricted detail. Given the dual-use dimensions identified in this assessment, this is worth reflecting on.", "templateBlocks": ["3-MIT-PUBLICATION"] }
+      ]
+    }
+  ]
+}

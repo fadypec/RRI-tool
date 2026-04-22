@@ -1,0 +1,14 @@
+[
+  { "id": "bbsrc", "label": "BBSRC", "templateOverlay": "5-FUNDER-BBSRC-MRC" },
+  { "id": "mrc", "label": "MRC", "templateOverlay": "5-FUNDER-BBSRC-MRC" },
+  { "id": "epsrc", "label": "EPSRC", "templateOverlay": "5-FUNDER-EPSRC" },
+  { "id": "esrc", "label": "ESRC" },
+  { "id": "nerc", "label": "NERC" },
+  { "id": "ahrc", "label": "AHRC" },
+  { "id": "innovate-uk", "label": "Innovate UK" },
+  { "id": "ukri", "label": "UKRI (cross-council)" },
+  { "id": "wellcome", "label": "Wellcome Trust", "templateOverlay": "5-FUNDER-WELLCOME" },
+  { "id": "horizon", "label": "Horizon Europe", "templateOverlay": "5-FUNDER-HORIZON" },
+  { "id": "other", "label": "Other" },
+  { "id": "none", "label": "No specific funder / general reflection" }
+]

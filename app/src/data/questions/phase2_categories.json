@@ -1,0 +1,154 @@
+[
+  {
+    "id": "bio",
+    "title": "Biological materials and methods",
+    "items": [
+      {
+        "id": "bio-agents",
+        "label": "Biological agents (bacteria, viruses, fungi, prions, toxins)",
+        "helpText": "Select if your research involves working with any living organisms or biological toxins, even common laboratory strains.",
+        "triggers": ["biological"]
+      },
+      {
+        "id": "bio-gm",
+        "label": "Genetic modification or synthetic biology",
+        "helpText": "Includes any alteration of an organism's genetic material, whether by traditional genetic engineering, CRISPR/Cas, or synthetic biology approaches.",
+        "triggers": ["synbio"]
+      },
+      {
+        "id": "bio-pathogen",
+        "label": "Pathogen characterisation, culturing, or enhancement",
+        "helpText": "Select if you are studying pathogen biology, growing pathogens in culture, or any work that could alter pathogen properties.",
+        "triggers": ["biological"]
+      },
+      {
+        "id": "bio-gof",
+        "label": "Gain-of-function research",
+        "helpText": "Research that alters an organism to give it new or enhanced capabilities. Examples include engineering a virus to be more transmissible, increasing resistance to treatments, or expanding host range. Even if this is not the primary aim, select this if your methods could produce these effects.",
+        "triggers": ["biological"]
+      },
+      {
+        "id": "bio-denovo",
+        "label": "De novo synthesis of genetic material or whole organisms",
+        "helpText": "Includes both in-house synthesis (e.g., using a benchtop device) and ordering synthetic nucleic acid sequences from commercial providers (e.g., IDT, Twist Bioscience, GenScript).",
+        "triggers": ["synbio"]
+      },
+      {
+        "id": "bio-tissue",
+        "label": "Work with human or animal tissue, cells, or biological samples",
+        "helpText": "Includes primary cells, cell lines, tissue samples, blood, and other biological material of human or animal origin.",
+        "triggers": ["biological"]
+      }
+    ]
+  },
+  {
+    "id": "chem",
+    "title": "Chemical materials and methods",
+    "items": [
+      {
+        "id": "chem-synthesis",
+        "label": "Chemical synthesis or processing",
+        "helpText": "Any research involving the creation of chemical compounds through synthetic routes.",
+        "triggers": ["chemical"]
+      },
+      {
+        "id": "chem-precursors",
+        "label": "Work with chemical precursors on controlled lists",
+        "helpText": "Chemicals listed on the Chemical Weapons Convention (CWC) Schedules (https://www.opcw.org/chemical-weapons-convention/annexes/annex-chemicals) or the Australia Group chemical precursors list (https://www.dfat.gov.au/publications/minisite/theaustraliagroupnet/site/en/precursors.html).",
+        "triggers": ["chemical"]
+      },
+      {
+        "id": "chem-toxic",
+        "label": "Novel toxic compounds or pharmaceutically active substances",
+        "helpText": "Research creating new compounds with significant toxicity or biological activity.",
+        "triggers": ["chemical"]
+      },
+      {
+        "id": "chem-dispersal",
+        "label": "Aerosol generation, dispersal, or delivery mechanisms",
+        "helpText": "Any work involving aerosolisation, encapsulation, spray drying, or other methods of dispersing substances. Includes drug delivery research.",
+        "triggers": ["chemical"]
+      },
+      {
+        "id": "chem-explosives",
+        "label": "Work with explosives, propellants, or energetic materials",
+        "triggers": ["chemical"]
+      }
+    ]
+  },
+  {
+    "id": "tech",
+    "title": "Technology and information",
+    "items": [
+      {
+        "id": "tech-ai",
+        "label": "Autonomous systems, AI, or machine learning",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-robotics",
+        "label": "Robotics or autonomous platforms (drones, unmanned vehicles, robotic manipulation)",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-dualuse-equip",
+        "label": "Dual-use equipment (fermenters, centrifuges, spray dryers, etc.)",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-nuclear",
+        "label": "Nuclear or radiological materials",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-materials",
+        "label": "Advanced materials (metamaterials, nanomaterials, energetic materials, high-performance composites)",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-quantum",
+        "label": "Quantum computing, quantum sensing, or quantum communications",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-surveillance",
+        "label": "Surveillance, monitoring, or tracking technologies",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-cyber",
+        "label": "Cybersecurity, encryption, or offensive cyber capabilities",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "tech-info-hazard",
+        "label": "Data or methods that could lower barriers to creating dangerous agents or materials",
+        "helpText": "Select if your research produces information, tools, or methods that could make it easier for someone to cause harm — even if that is not the intent.",
+        "triggers": ["info-hazard"]
+      }
+    ]
+  },
+  {
+    "id": "cross",
+    "title": "Cross-cutting",
+    "items": [
+      {
+        "id": "cross-intl",
+        "label": "International collaboration with export-controlled regions",
+        "helpText": "Collaboration with partners in countries subject to export controls, sanctions, or enhanced due diligence requirements.",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "cross-military",
+        "label": "Work with potential military or intelligence applications",
+        "triggers": ["technology"]
+      },
+      {
+        "id": "cross-publication",
+        "label": "Research outputs that could enable harm if published in detail",
+        "helpText": "Select if publishing your full methods or results could provide a roadmap for harmful applications, even though the research itself is beneficial.",
+        "triggers": ["info-hazard"]
+      }
+    ]
+  }
+]
