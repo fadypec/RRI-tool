@@ -1,0 +1,9 @@
+{
+  "name": "rri-steer-root",
+  "private": true,
+  "scripts": {
+    "install": "cd app && npm install",
+    "build": "cd app && npm run build",
+    "start": "cd app && node --import tsx server.ts"
+  }
+}
