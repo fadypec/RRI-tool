@@ -131,7 +131,8 @@ ${text}
 })
 
 // SPA fallback — serve index.html for all non-API routes
-app.get('*', (_req, res) => {
+// Express 5 uses '{*path}' instead of '*' for catch-all
+app.get('{*path}', (_req, res) => {
   res.sendFile(path.join(import.meta.dirname, 'dist', 'index.html'))
 })
 
