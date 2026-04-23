@@ -37,8 +37,8 @@ export function Stepper({ steps, currentStep, currentStepIndex, theme, onToggleT
     <nav role="navigation" aria-label="Assessment progress" className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-[var(--color-border)]"
       style={{ background: theme === 'dark' ? 'rgba(26,29,36,0.92)' : 'rgba(250,249,246,0.92)' }}>
       <div className="max-w-[960px] mx-auto flex items-center px-6 py-3">
-        <div className="font-[family-name:var(--font-display)] text-lg mr-8 shrink-0">
-          RRI STEER
+        <div className="font-mono text-sm tracking-wide mr-8 shrink-0 opacity-70">
+          rri steer
         </div>
 
         <div className="flex items-center gap-0 flex-1 overflow-hidden">
