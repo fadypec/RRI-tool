@@ -12,9 +12,11 @@ export function WelcomePage({ mode, onSetMode, onNext, onNavigatePrivacy }: Welc
     <section className="min-h-screen flex flex-col items-center px-6 pt-28 pb-16">
       <div className="max-w-[720px] w-full">
         <h1 className="font-[family-name:var(--font-display)] text-[3.2rem] leading-[1.15] tracking-tight mb-6">
-          Structured reflection on{' '}
+          Structured reflection
           <br />
-          <em className="text-[var(--color-accent)] italic">dual-use</em> risk for grant applications
+          on <em className="text-[var(--color-accent)] italic">dual-use</em> risk
+          <br />
+          for grant applications
         </h1>
 
         <p className="text-lg leading-relaxed text-[var(--color-ink-muted)] mb-6">
